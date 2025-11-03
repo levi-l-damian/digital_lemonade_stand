@@ -1,8 +1,10 @@
 import 'package:flutter/material.dart';
+import 'package:go_router/go_router.dart';
 
 import '../tokens.dart';
 import '../widgets/beverage_card.dart';
 import '../widgets/place_order_button.dart';
+import '../routes.dart';
 
 class HomeScreen extends StatefulWidget {
   const HomeScreen({super.key});
@@ -45,12 +47,7 @@ class _HomeScreenState extends State<HomeScreen> {
   }
 
   void _placeOrder() {
-    ScaffoldMessenger.of(context).showSnackBar(
-      const SnackBar(
-        content: Text('Order flow coming soon.'),
-        behavior: SnackBarBehavior.floating,
-      ),
-    );
+    context.push(RoutePaths.order);
   }
 
   @override

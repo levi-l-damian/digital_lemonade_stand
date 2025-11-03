@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 
+import 'app_router.dart';
 import 'theme.dart';
-import 'screens/home_screen.dart';
 
 void main() {
   runApp(const MainApp());
@@ -12,10 +12,10 @@ class MainApp extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return MaterialApp(
+    return MaterialApp.router(
       debugShowCheckedModeBanner: false,
       theme: buildTheme(),
-      home: const HomeScreen(),
+      routerConfig: router,
     );
   }
 }
