@@ -3,6 +3,7 @@ import 'package:flutter/material.dart';
 import '../providers/beverage_providers.dart';
 import '../tokens.dart';
 
+/// Visual card used on the catalog page for a single beverage.
 class BeverageCard extends StatelessWidget {
   const BeverageCard({
     super.key,
@@ -88,6 +89,7 @@ class BeverageCard extends StatelessWidget {
   }
 }
 
+/// Decorative gradient tile that stands in for product imagery.
 class _BeverageArtwork extends StatelessWidget {
   const _BeverageArtwork({required this.visual});
 
@@ -144,6 +146,7 @@ class _BeverageArtwork extends StatelessWidget {
   }
 }
 
+/// Row widget housing price and quantity controls for a single size.
 class _PriceRow extends StatelessWidget {
   const _PriceRow({
     required this.size,
@@ -203,6 +206,7 @@ class _PriceRow extends StatelessWidget {
   }
 }
 
+/// IconButton with tighter density, used for quantity +/-.
 class _QuantityButton extends StatelessWidget {
   const _QuantityButton({
     required this.icon,

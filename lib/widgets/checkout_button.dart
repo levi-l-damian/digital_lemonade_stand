@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 
 import '../tokens.dart';
 
+/// Primary action button displayed at the bottom of the order screen.
 class CheckoutButton extends StatelessWidget {
   const CheckoutButton({
     super.key,

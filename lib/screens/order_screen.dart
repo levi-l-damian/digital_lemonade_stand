@@ -7,6 +7,7 @@ import '../tokens.dart';
 import '../widgets/checkout_button.dart';
 import '../widgets/order_field.dart';
 
+/// Checkout form that shows the current cart alongside customer fields.
 class OrderScreen extends ConsumerWidget {
   const OrderScreen({super.key});
 
@@ -84,6 +85,7 @@ class OrderScreen extends ConsumerWidget {
   }
 }
 
+/// Lightweight descriptor for building the order form fields.
 class _OrderFieldData {
   const _OrderFieldData({
     required this.label,
@@ -135,6 +137,7 @@ const _orderFields = [
   ),
 ];
 
+/// Displays a card preview of the beverages selected by the user.
 class _OrderSummary extends StatelessWidget {
   const _OrderSummary({
     required this.items,
@@ -209,6 +212,7 @@ class _OrderSummary extends StatelessWidget {
   }
 }
 
+/// Layout helper for an individual beverage line item.
 class _OrderItemRow extends StatelessWidget {
   const _OrderItemRow({required this.item});
 

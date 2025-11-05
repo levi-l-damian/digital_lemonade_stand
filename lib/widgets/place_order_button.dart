@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 
 import '../tokens.dart';
 
+/// Home screen CTA that respects the enabled/disabled styling from tokens.
 class PlaceOrderButton extends StatelessWidget {
   const PlaceOrderButton({
     super.key,

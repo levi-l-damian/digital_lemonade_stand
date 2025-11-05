@@ -6,6 +6,7 @@ import 'package:window_size/window_size.dart';
 import 'app_router.dart';
 import 'theme.dart';
 
+/// Boots the Digital Lemonade Stand app and enforces the desktop window floor.
 void main() {
   WidgetsFlutterBinding.ensureInitialized();
   const Size minimumWindowSize = Size(800, 600);
@@ -17,6 +18,7 @@ void main() {
   runApp(const ProviderScope(child: MainApp()));
 }
 
+/// Root widget that wires Riverpod and the global router into MaterialApp.
 class MainApp extends ConsumerWidget {
   const MainApp({super.key});
 

@@ -8,9 +8,11 @@ import '../tokens.dart';
 import '../widgets/beverage_card.dart';
 import '../widgets/place_order_button.dart';
 
+/// Displays the beverage catalog with quantity controls and CTA.
 class HomeScreen extends ConsumerWidget {
   const HomeScreen({super.key});
 
+  /// Navigates to the order route once the user taps the CTA.
   void _placeOrder(BuildContext context) {
     context.pushNamed(RouteNames.order);
   }
@@ -50,17 +52,17 @@ class HomeScreen extends ConsumerWidget {
                     runSpacing: spacing,
                     children: [
                       for (final beverage in beverages)
-                      SizedBox(
-                        width: cardWidth,
-                        child: BeverageCard(
-                          title: beverage.title,
-                          prices: beverage.prices,
-                          visual: beverage.visual,
-                          quantities: quantities[beverage.title] ?? const {},
-                          onQuantityChanged: (size, quantity) => ref
-                              .read(beverageQuantitiesProvider.notifier)
-                              .updateQuantity(beverage.title, size, quantity),
-                          onReset: () => ref
+                        SizedBox(
+                          width: cardWidth,
+                          child: BeverageCard(
+                            title: beverage.title,
+                            prices: beverage.prices,
+                            visual: beverage.visual,
+                            quantities: quantities[beverage.title] ?? const {},
+                            onQuantityChanged: (size, quantity) => ref
+                                .read(beverageQuantitiesProvider.notifier)
+                                .updateQuantity(beverage.title, size, quantity),
+                            onReset: () => ref
                                 .read(beverageQuantitiesProvider.notifier)
                                 .resetBeverage(beverage.title),
                           ),
@@ -87,12 +89,14 @@ class HomeScreen extends ConsumerWidget {
   }
 }
 
+/// Chooses an appropriate card column count for the given viewport width.
 int _columnsForWidth(double width) {
   if (width >= 1100) return 4;
   if (width >= 700) return 2;
   return 1;
 }
 
+/// Calculates the card width so that `columns` cards and spacing fit the row.
 double _cardWidthFor(double maxWidth, int columns, double spacing) {
   if (columns == 1) {
     return maxWidth;

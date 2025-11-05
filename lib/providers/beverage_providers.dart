@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 
+/// Metadata used to render the hero art for a beverage card.
 class BeverageVisual {
   const BeverageVisual({
     required this.gradient,
@@ -13,6 +14,7 @@ class BeverageVisual {
   final Color iconColor;
 }
 
+/// Static description of a beverage offering including pricing and visuals.
 class BeverageDefinition {
   const BeverageDefinition({
     required this.title,
@@ -25,6 +27,7 @@ class BeverageDefinition {
   final BeverageVisual visual;
 }
 
+/// Runtime selection that represents a beverage/size/quantity combination.
 class BeverageSelection {
   const BeverageSelection({
     required this.beverageTitle,
@@ -41,15 +44,18 @@ class BeverageSelection {
   double get totalPrice => unitPrice * quantity;
 }
 
+/// Provides the catalog of beverages rendered on the home screen.
 final beveragesProvider = Provider<List<BeverageDefinition>>(
   (ref) => _beverages,
 );
 
+/// Tracks quantity selections for each beverage size.
 final beverageQuantitiesProvider =
     StateNotifierProvider<BeverageQuantitiesNotifier, Map<String, Map<String, int>>>(
   (ref) => BeverageQuantitiesNotifier(ref.watch(beveragesProvider)),
 );
 
+/// Returns true when at least one beverage has a non-zero quantity.
 final hasSelectionsProvider = Provider<bool>((ref) {
   final quantities = ref.watch(beverageQuantitiesProvider);
   for (final beverageEntry in quantities.values) {
@@ -60,6 +66,7 @@ final hasSelectionsProvider = Provider<bool>((ref) {
   return false;
 });
 
+/// Projects the raw quantities into a flat list suitable for order summaries.
 final selectedItemsProvider = Provider<List<BeverageSelection>>((ref) {
   final beverages = ref.watch(beveragesProvider);
   final quantities = ref.watch(beverageQuantitiesProvider);
@@ -91,6 +98,7 @@ final selectedItemsProvider = Provider<List<BeverageSelection>>((ref) {
   return selections;
 });
 
+/// State container responsible for mutating beverage quantities.
 class BeverageQuantitiesNotifier
     extends StateNotifier<Map<String, Map<String, int>>> {
   BeverageQuantitiesNotifier(List<BeverageDefinition> beverages)
