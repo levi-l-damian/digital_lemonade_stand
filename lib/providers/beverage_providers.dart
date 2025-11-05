@@ -1,13 +1,28 @@
+import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
+
+class BeverageVisual {
+  const BeverageVisual({
+    required this.gradient,
+    required this.icon,
+    required this.iconColor,
+  });
+
+  final List<Color> gradient;
+  final IconData icon;
+  final Color iconColor;
+}
 
 class BeverageDefinition {
   const BeverageDefinition({
     required this.title,
     required this.prices,
+    required this.visual,
   });
 
   final String title;
   final Map<String, double> prices;
+  final BeverageVisual visual;
 }
 
 class BeverageSelection {
@@ -117,17 +132,37 @@ const List<BeverageDefinition> _beverages = [
   BeverageDefinition(
     title: 'Classic Lemonade',
     prices: {'S': 2.49, 'M': 3.49, 'L': 4.49},
+    visual: BeverageVisual(
+      gradient: [Color(0xFFFFF3B0), Color(0xFFFFE066)],
+      icon: Icons.local_cafe,
+      iconColor: Color(0xFF9C6F00),
+    ),
   ),
   BeverageDefinition(
     title: 'Strawberry Lemonade',
     prices: {'S': 2.99, 'M': 3.99, 'L': 4.99},
+    visual: BeverageVisual(
+      gradient: [Color(0xFFFFC1C1), Color(0xFFFF6F91)],
+      icon: Icons.local_bar,
+      iconColor: Color(0xFF8A1C3B),
+    ),
   ),
   BeverageDefinition(
     title: 'Mint Limeade',
     prices: {'S': 2.79, 'M': 3.79, 'L': 4.79},
+    visual: BeverageVisual(
+      gradient: [Color(0xFFDFFFE2), Color(0xFF7DD87D)],
+      icon: Icons.grass,
+      iconColor: Color(0xFF1E6F43),
+    ),
   ),
   BeverageDefinition(
     title: 'Sparkling Lemonade',
     prices: {'S': 3.29, 'M': 4.29, 'L': 5.29},
+    visual: BeverageVisual(
+      gradient: [Color(0xFFE0F7FF), Color(0xFF7FDBFF)],
+      icon: Icons.bubble_chart,
+      iconColor: Color(0xFF0B6A88),
+    ),
   ),
 ];

@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 
+import '../providers/beverage_providers.dart';
 import '../tokens.dart';
 
 class BeverageCard extends StatelessWidget {
@@ -7,6 +8,7 @@ class BeverageCard extends StatelessWidget {
     super.key,
     required this.title,
     required this.prices,
+    required this.visual,
     required this.quantities,
     required this.onQuantityChanged,
     required this.onReset,
@@ -14,6 +16,7 @@ class BeverageCard extends StatelessWidget {
 
   final String title;
   final Map<String, double> prices;
+  final BeverageVisual visual;
   final Map<String, int> quantities;
   final void Function(String size, int quantity) onQuantityChanged;
   final VoidCallback onReset;
@@ -26,7 +29,7 @@ class BeverageCard extends StatelessWidget {
         child: Row(
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
-            const _ImagePlaceholder(),
+            _BeverageArtwork(visual: visual),
             const SizedBox(width: 24),
             Expanded(
               child: Stack(
@@ -85,8 +88,10 @@ class BeverageCard extends StatelessWidget {
   }
 }
 
-class _ImagePlaceholder extends StatelessWidget {
-  const _ImagePlaceholder();
+class _BeverageArtwork extends StatelessWidget {
+  const _BeverageArtwork({required this.visual});
+
+  final BeverageVisual visual;
 
   @override
   Widget build(BuildContext context) {
@@ -94,8 +99,46 @@ class _ImagePlaceholder extends StatelessWidget {
       width: 80,
       height: 140,
       decoration: BoxDecoration(
-        color: Tokens.imgPlaceholder,
+        gradient: LinearGradient(
+          begin: Alignment.topCenter,
+          end: Alignment.bottomCenter,
+          colors: visual.gradient,
+        ),
         borderRadius: BorderRadius.circular(Tokens.rImage),
+        border: Border.all(color: Colors.white.withValues(alpha: 0.4), width: 2),
+        boxShadow: [
+          BoxShadow(
+            color: Colors.black.withValues(alpha: 0.08),
+            blurRadius: 12,
+            offset: const Offset(0, 6),
+          ),
+        ],
+      ),
+      child: Stack(
+        children: [
+          Align(
+            alignment: Alignment.bottomLeft,
+            child: Padding(
+              padding: const EdgeInsets.all(8),
+              child: Icon(
+                visual.icon,
+                size: 28,
+                color: visual.iconColor.withValues(alpha: 0.9),
+              ),
+            ),
+          ),
+          Align(
+            alignment: Alignment.topRight,
+            child: Padding(
+              padding: const EdgeInsets.all(6),
+              child: Icon(
+                Icons.icecream_outlined,
+                color: Colors.white.withValues(alpha: 0.3),
+                size: 20,
+              ),
+            ),
+          ),
+        ],
       ),
     );
   }

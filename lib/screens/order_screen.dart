@@ -26,55 +26,59 @@ class OrderScreen extends ConsumerWidget {
         ),
         title: const Text('Your Order'),
       ),
-      body: LayoutBuilder(
-        builder: (context, constraints) {
-          final width = constraints.maxWidth;
-          final horizontalPadding = Tokens.pApp * 2;
-          final availableWidth = (width - horizontalPadding).clamp(0.0, width);
-          final columns = availableWidth >= 720 ? 2 : 1;
-          const spacing = 24.0;
-          final fieldWidth =
-              columns == 1 ? availableWidth : (availableWidth - spacing) / columns;
+      body: SafeArea(
+        child: LayoutBuilder(
+          builder: (context, constraints) {
+            final width = constraints.maxWidth;
+            final horizontalPadding = Tokens.pApp * 2;
+            final availableWidth =
+                (width - horizontalPadding).clamp(0.0, width);
+            final columns = availableWidth >= 720 ? 2 : 1;
+            const spacing = 24.0;
+            final fieldWidth = columns == 1
+                ? availableWidth
+                : (availableWidth - spacing) / columns;
 
-          return SingleChildScrollView(
-            padding: const EdgeInsets.all(Tokens.pApp),
-            child: Column(
-              crossAxisAlignment: CrossAxisAlignment.start,
-              children: [
-                _OrderSummary(
-                  items: selectedItems,
-                  total: total,
-                ),
-                if (selectedItems.isNotEmpty) const SizedBox(height: 24),
-                Wrap(
-                  spacing: spacing,
-                  runSpacing: 18,
-                  children: [
-                    for (final field in _orderFields)
-                      SizedBox(
-                        width: fieldWidth,
-                        child: OrderField(
-                          label: field.label,
-                          initialValue: field.initialValue,
-                          keyboardType: field.keyboardType,
+            return SingleChildScrollView(
+              padding: const EdgeInsets.all(Tokens.pApp),
+              child: Column(
+                crossAxisAlignment: CrossAxisAlignment.start,
+                children: [
+                  _OrderSummary(
+                    items: selectedItems,
+                    total: total,
+                  ),
+                  if (selectedItems.isNotEmpty) const SizedBox(height: 24),
+                  Wrap(
+                    spacing: spacing,
+                    runSpacing: 18,
+                    children: [
+                      for (final field in _orderFields)
+                        SizedBox(
+                          width: fieldWidth,
+                          child: OrderField(
+                            label: field.label,
+                            initialValue: field.initialValue,
+                            keyboardType: field.keyboardType,
+                          ),
                         ),
+                    ],
+                  ),
+                  const SizedBox(height: 32),
+                  Align(
+                    child: ConstrainedBox(
+                      constraints: const BoxConstraints(maxWidth: 260),
+                      child: CheckoutButton(
+                        onPressed:
+                            selectedItems.isEmpty ? null : () => context.pop(),
                       ),
-                  ],
-                ),
-                const SizedBox(height: 32),
-                Align(
-                  child: ConstrainedBox(
-                    constraints: const BoxConstraints(maxWidth: 260),
-                    child: CheckoutButton(
-                      onPressed:
-                          selectedItems.isEmpty ? null : () => context.pop(),
                     ),
                   ),
-                ),
-              ],
-            ),
-          );
-        },
+                ],
+              ),
+            );
+          },
+        ),
       ),
     );
   }
