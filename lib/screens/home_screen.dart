@@ -2,21 +2,24 @@ import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:go_router/go_router.dart';
 
-import '../tokens.dart';
 import '../providers/beverage_providers.dart';
+import '../routes.dart';
+import '../tokens.dart';
 import '../widgets/beverage_card.dart';
 import '../widgets/place_order_button.dart';
-import '../routes.dart';
 
 class HomeScreen extends ConsumerWidget {
   const HomeScreen({super.key});
+
+  void _placeOrder(BuildContext context) {
+    context.pushNamed(RouteNames.order);
+  }
 
   @override
   Widget build(BuildContext context, WidgetRef ref) {
     final beverages = ref.watch(beveragesProvider);
     final quantities = ref.watch(beverageQuantitiesProvider);
     final hasSelections = ref.watch(hasSelectionsProvider);
-    final quantityNotifier = ref.read(beverageQuantitiesProvider.notifier);
 
     return Scaffold(
       appBar: AppBar(
@@ -30,7 +33,8 @@ class HomeScreen extends ConsumerWidget {
         builder: (context, constraints) {
           final contentWidth = constraints.maxWidth;
           final horizontalPadding = Tokens.pApp * 2;
-          final availableWidth = (contentWidth - horizontalPadding).clamp(0.0, contentWidth);
+          final availableWidth =
+              (contentWidth - horizontalPadding).clamp(0.0, contentWidth);
           final columns = _columnsForWidth(availableWidth);
           const spacing = 20.0;
           final cardWidth = _cardWidthFor(availableWidth, columns, spacing);
@@ -51,16 +55,12 @@ class HomeScreen extends ConsumerWidget {
                           title: beverage.title,
                           prices: beverage.prices,
                           quantities: quantities[beverage.title] ?? const {},
-                          onQuantityChanged: (size, quantity) {
-                            quantityNotifier.setQuantity(
-                              beverageTitle: beverage.title,
-                              size: size,
-                              quantity: quantity,
-                            );
-                          },
-                          onReset: () => quantityNotifier.resetBeverage(
-                            beverage.title,
-                          ),
+                          onQuantityChanged: (size, quantity) => ref
+                              .read(beverageQuantitiesProvider.notifier)
+                              .updateQuantity(beverage.title, size, quantity),
+                          onReset: () => ref
+                              .read(beverageQuantitiesProvider.notifier)
+                              .resetBeverage(beverage.title),
                         ),
                       ),
                   ],
@@ -70,9 +70,8 @@ class HomeScreen extends ConsumerWidget {
                   child: ConstrainedBox(
                     constraints: const BoxConstraints(maxWidth: 260),
                     child: PlaceOrderButton(
-                      onPressed: hasSelections
-                          ? () => context.push(RoutePaths.order)
-                          : null,
+                      onPressed:
+                          hasSelections ? () => _placeOrder(context) : null,
                     ),
                   ),
                 ),

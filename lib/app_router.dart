@@ -5,15 +5,17 @@ import 'routes.dart';
 import 'screens/home_screen.dart';
 import 'screens/order_screen.dart';
 
-final routerProvider = Provider<GoRouter>((ref) {
+final appRouterProvider = Provider<GoRouter>((ref) {
   return GoRouter(
     routes: [
       GoRoute(
-        path: RoutePaths.home,
+        path: RoutesPath.home,
+        name: RouteNames.home,
         builder: (context, state) => const HomeScreen(),
       ),
       GoRoute(
-        path: RoutePaths.order,
+        path: RoutesPath.order,
+        name: RouteNames.order,
         builder: (context, state) => const OrderScreen(),
       ),
     ],

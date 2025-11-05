@@ -8,7 +8,7 @@ class CheckoutButton extends StatelessWidget {
     required this.onPressed,
   });
 
-  final VoidCallback onPressed;
+  final VoidCallback? onPressed;
 
   @override
   Widget build(BuildContext context) {

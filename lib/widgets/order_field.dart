@@ -1,33 +1,31 @@
 import 'package:flutter/material.dart';
 
-import '../tokens.dart';
-
+/// Simple text field used on the order screen to keep styling consistent.
 class OrderField extends StatelessWidget {
   const OrderField({
     super.key,
     required this.label,
-    this.hint,
     this.initialValue,
     this.keyboardType,
+    this.textInputAction,
+    this.obscureText = false,
   });
 
   final String label;
-  final String? hint;
   final String? initialValue;
   final TextInputType? keyboardType;
+  final TextInputAction? textInputAction;
+  final bool obscureText;
 
   @override
   Widget build(BuildContext context) {
     return TextFormField(
       initialValue: initialValue,
       keyboardType: keyboardType,
+      textInputAction: textInputAction,
+      obscureText: obscureText,
       decoration: InputDecoration(
         labelText: label,
-        hintText: hint,
-      ),
-      style: const TextStyle(
-        fontSize: 14,
-        color: Tokens.text,
       ),
     );
   }
